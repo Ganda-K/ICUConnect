@@ -34,27 +34,24 @@ socketio = SocketIO(
 
 
 
-def create_app(test_config=None):
+def create_app():
     app = Flask(__name__)
 
     CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
-    if test_config is None:
-        # Configure database URI to point explicitly to instance folder
-        app.config.from_mapping(
-            SECRET_KEY='dev',
-            SQLALCHEMY_DATABASE_URI='postgresql://flaskuser:uuitg6oty7bdR9hdL5uTOoIoQTHId4vC@dpg-d1m3n2ali9vc73cot8q0-a.oregon-postgres.render.com:5432/icuconnectdb_vuav',
-            SQLALCHEMY_TRACK_MODIFICATIONS=False,
-            SQLALCHEMY_ENGINE_OPTIONS = {
-                'pool_size': 10,
-                'max_overflow': 20,
-                'pool_pre_ping': True,
-                'pool_recycle': 3600
-            }
-        )
-    else:
-        # Use test configuration
-        app.config.from_mapping(test_config)
+    
+    # Configure database URI to point explicitly to instance folder
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        SQLALCHEMY_DATABASE_URI='postgresql://final_icu_user:W0jPXLgAskOFhwXXDALBqj1nzY03peKi@dpg-d1s1s5mmcj7s73a0tm30-a.oregon-postgres.render.com/final_icu',
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        SQLALCHEMY_ENGINE_OPTIONS = {
+            'pool_size': 10,
+            'max_overflow': 20,
+            'pool_pre_ping': True,
+            'pool_recycle': 3600
+        }
+    )
     
     app.config.update(
         MAIL_SERVER='smtp.gmail.com',
@@ -181,9 +178,8 @@ def create_app(test_config=None):
 
             return dict(get_greeting=get_greeting, current_datetime=current_datetime)
         
-        # Initialize database (skip for test configurations)
-        if test_config is None:
-            _initialize_database(app)
+        # Initialize database
+        _initialize_database(app)
 
     return app
 
