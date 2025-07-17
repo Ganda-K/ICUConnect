@@ -57,9 +57,9 @@ def create_app():
         MAIL_SERVER='smtp.gmail.com',
         MAIL_PORT=587,
         MAIL_USE_TLS=True,
-        MAIL_USERNAME='k.ganda@alustudent.com',    
+        MAIL_USERNAME='kateamimo@gmail.com',    
         MAIL_PASSWORD=os.environ.get('MAIL_PASSWORD'),
-        MAIL_DEFAULT_SENDER='k.ganda@alustudent.com',
+        MAIL_DEFAULT_SENDER='kateamimo@gmail.com',
     )
     
     # Initialize extensions
